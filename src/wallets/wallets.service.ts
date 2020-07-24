@@ -92,9 +92,9 @@ export class WalletsService {
   }
 
   private async getTransactions(address): Promise<any> {
-    const url = `${this.configService.get<string>(
+    const url = `${process.env.ETHERSCAN_API_URL||this.configService.get<string>(
       'ETHERSCAN_API_URL',
-    )}?module=account&action=txlist&address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae&startblock=0&endblock=99999999&sort=asc&apikey=${this.configService.get<
+    )}?module=account&action=txlist&address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae&startblock=0&endblock=99999999&sort=asc&apikey=${process.env.ETHERSCAN_API_KEY||this.configService.get<
       string
     >('ETHERSCAN_API_KEY')}`;
     return new Promise((resolve, reject) => {
