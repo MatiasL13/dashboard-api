@@ -1,8 +1,8 @@
 {
   "name": "dashboard-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "<p align=\"center\">   <a href=\"http://nestjs.com/\" target=\"blank\"><img src=\"https://nestjs.com/img/logo_text.svg\" width=\"320\" alt=\"Nest Logo\" /></a> </p>",
+  "author": "Matias L Sanchez",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -70,5 +70,22 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatiasL13/dashboard-api.git"
+  },
+  "keywords": [
+    "dashboard",
+    "api",
+    "heroku"
+  ],
+  "bugs": {
+    "url": "https://github.com/MatiasL13/dashboard-api/issues"
+  },
+  "homepage": "https://github.com/MatiasL13/dashboard-api#readme"
 }
