@@ -35,11 +35,12 @@ export class WalletsService {
   }
 
   async getBalance(address): Promise<number> {
-    const url = `${this.configService.get<string>(
+    const url = `${process.env.ETHERSCAN_API_URL||this.configService.get<string>(
       'ETHERSCAN_API_URL',
-    )}?module=account&action=balance&address=${address}&tag=latest&apikey=${this.configService.get<
+    )}?module=account&action=balance&address=${address}&tag=latest&apikey=${process.env.ETHERSCAN_API_KEY||this.configService.get<
       string
     >('ETHERSCAN_API_KEY')}`;
+    console.log(url);
     return new Promise((resolve, reject) => {
       axios
         .get(url)
@@ -97,6 +98,7 @@ export class WalletsService {
     )}?module=account&action=txlist&address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae&startblock=0&endblock=99999999&sort=asc&apikey=${process.env.ETHERSCAN_API_KEY||this.configService.get<
       string
     >('ETHERSCAN_API_KEY')}`;
+    console.log(url);
     return new Promise((resolve, reject) => {
       axios
         .get(url)
