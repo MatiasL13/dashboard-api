@@ -16,7 +16,19 @@ export class WalletsService {
     private ratesService: RatesService,
   ) {}
 
-  private readonly wallets: Wallet[] = [];
+  private readonly wallets: Wallet[] = [{
+      address: '0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae',
+      balance: 0
+  },
+  {
+      address:'0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a',
+      balance: 0
+  },
+  {
+      address: '0x2c1ba59d6f58433fb1eaee7d20b26ed83bda51a3',
+      balance: 0
+  }
+];
 
   findAll(): Wallet[] {
     return this.wallets;
