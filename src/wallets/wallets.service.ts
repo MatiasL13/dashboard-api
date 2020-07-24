@@ -9,6 +9,9 @@ const axios = require('axios');
 const web3 = require('web3');
 const fromWei = web3.utils.fromWei;
 
+const ETHERSCAN_API_KEY = 'NSZCD6S4TKVWRS13PMQFMVTNP6H7NAGHUY';
+const ETHERSCAN_API_URL = 'http://api.etherscan.io/api';
+
 @Injectable()
 export class WalletsService {
   constructor(
@@ -16,31 +19,30 @@ export class WalletsService {
     private ratesService: RatesService,
   ) {}
 
-  private readonly wallets: Wallet[] = [{
+  private readonly wallets: Wallet[] = [
+    {
       address: '0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae',
-      balance: 0
-  },
-  {
-      address:'0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a',
-      balance: 0
-  },
-  {
+      balance: 0,
+    },
+    {
+      address: '0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a',
+      balance: 0,
+    },
+    {
       address: '0x2c1ba59d6f58433fb1eaee7d20b26ed83bda51a3',
-      balance: 0
-  }
-];
+      balance: 0,
+    },
+  ];
 
   findAll(): Wallet[] {
     return this.wallets;
   }
 
   async getBalance(address): Promise<number> {
-    const url = `${process.env.ETHERSCAN_API_URL||this.configService.get<string>(
-      'ETHERSCAN_API_URL',
-    )}?module=account&action=balance&address=${address}&tag=latest&apikey=${process.env.ETHERSCAN_API_KEY||this.configService.get<
+    const url = `${this.configService.get<string>('ETHERSCAN_API_URL') ||
+      ETHERSCAN_API_URL}?module=account&action=balance&address=${address}&tag=latest&apikey=${this.configService.get<
       string
-    >('ETHERSCAN_API_KEY')}`;
-    console.log(url);
+    >('ETHERSCAN_API_KEY') || ETHERSCAN_API_KEY}`;
     return new Promise((resolve, reject) => {
       axios
         .get(url)
@@ -93,12 +95,10 @@ export class WalletsService {
   }
 
   private async getTransactions(address): Promise<any> {
-    const url = `${process.env.ETHERSCAN_API_URL||this.configService.get<string>(
-      'ETHERSCAN_API_URL',
-    )}?module=account&action=txlist&address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae&startblock=0&endblock=99999999&sort=asc&apikey=${process.env.ETHERSCAN_API_KEY||this.configService.get<
+    const url = `${this.configService.get<string>('ETHERSCAN_API_URL') ||
+      ETHERSCAN_API_URL}?module=account&action=txlist&address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae&startblock=0&endblock=99999999&sort=asc&apikey=${this.configService.get<
       string
-    >('ETHERSCAN_API_KEY')}`;
-    console.log(url);
+    >('ETHERSCAN_API_KEY') || ETHERSCAN_API_KEY}`;
     return new Promise((resolve, reject) => {
       axios
         .get(url)
