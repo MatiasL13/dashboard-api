@@ -1,7 +1,7 @@
-import { Controller, Get, Param} from '@nestjs/common';
+import { Controller, Get, Param,HttpException,HttpStatus} from '@nestjs/common';
 import {WalletsService} from './wallets.service';
 import {Wallet} from './interfaces/wallet.interface';
-import { get } from 'http';
+
 
 
 @Controller('wallets')
@@ -23,7 +23,13 @@ export class WalletsController {
     @Get(':address/balance')
     async balance(@Param('address') address): Promise<any>{
         return this.walletsService.getBalance(address);
-
+    }
+    
+    @Get(':address/balance/:currency')
+    async getBalanceInCurrency(@Param() params): Promise<any>{
+        if(params.currency == 'usd' || params.currency == 'eur' )
+            return this.walletsService.getBalanceInCurrency(params.address,params.currency);
+        throw new HttpException('Wrong Currency', HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @Get(':id')
